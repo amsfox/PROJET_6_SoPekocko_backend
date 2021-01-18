@@ -1,11 +1,12 @@
-// élément de logique métier de la route POST vers notre contrôleur (users)
+// élément de logique métier de la route POST vers notre contrôleur (users)  //
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
 const User = require("../models/User")
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PASSWORD_REGEX  = /^(?=.*\d).{4,8}$/;
+// const PASSWORD_REGEX  = /^(?=.*\d).{4,8}$/;
+const PASSWORD_REGEX  = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;  //Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 const REGEX_INJECT = /[\=\'\'\{\}]/; // ne doit pas contenir les caractères suivants : =, ", ", {, }
 
 exports.signup = (req, res, next) => {
@@ -19,7 +20,7 @@ exports.signup = (req, res, next) => {
     return res.status(400).json({ 'error': 'password invalid must no include "=}{' });
   };
   if (!PASSWORD_REGEX.test(password)) {
-    return res.status(400).json({ 'error': 'password invalid (must length 4 - 8 and include 1 number at least)' });
+    return res.status(400).json({ 'error': 'password invalid (Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character)' });
   }
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
