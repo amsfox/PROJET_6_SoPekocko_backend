@@ -1,6 +1,7 @@
+// L'application fait appel aux differentes fonction de l'API comme l'acces aux routes
 const express = require("express"); // on importe l'application express
-const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
+const bodyParser = require("body-parser"); //transformer le corps de la requte au format json
+const mongoose = require('mongoose'); // permet de communiquer avec la bse de donnée mongo DB
 const env = require("dotenv").config()
 
 const path = require('path');
@@ -21,7 +22,7 @@ let user = process.env.USER;
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
+// corriger l'erreur CORS qui bloque par defaut les apples http éffectués entre des serveurs differents (ex dans notre cas localhost:3000 et localhost:4000)
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -31,7 +32,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images'))); // utiliser pour le middleware multer pour les images
 
 app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);

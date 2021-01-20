@@ -1,6 +1,13 @@
 // élément de logique métier de la route POST vers notre contrôleur (users)  //
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+
+/*
+TOKEN : Quand un utilisateur se connecte, il recoit un token encodé depuis le serveur que le frontend va lier à chaque requete
+ensuite le serveur peut verifier ce token pour chaque requete authentifié
+système securisé qui rend plus simple la croissance des services
+car plus besoin de stoker des information de ssion sur le serveur
+*/
+const jwt = require('jsonwebtoken'); 
 
 const User = require("../models/User")
 

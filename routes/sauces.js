@@ -1,10 +1,10 @@
-// contient la logique de nos routes pour les sauces.
+// contient la logique de nos routes pour les sauces (fonctions qui s'appliquent aux routes)
 const express = require('express');
-const router = express.Router();
+const router = express.Router(); // permet d'appeler la logique de route
 
-const saucesCtrl = require("../controllers/sauces");
-const auth = require("../middleware/auth");
-const multer = require('../middleware/multer-config');
+const saucesCtrl = require("../controllers/sauces"); // logique metier à appliquer aux routes du CRUD
+const auth = require("../middleware/auth"); // configuration d'authentification jsonwebtoken
+const multer = require('../middleware/multer-config'); // traitement des fichiers image
 
 
 
